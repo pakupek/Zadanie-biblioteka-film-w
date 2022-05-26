@@ -24,7 +24,6 @@ class Movieinformation(Base):
         return self.numplays
 
     def info(self):
-        bracket = "()"
         informations = self.title + "\t" + f"({str(self.year)})"
         return informations
         
