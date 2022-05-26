@@ -70,13 +70,13 @@ class Library:
                 print(i.title)
 
     def generate_views(self):
-        moviesample = Movieinformation.choice(self.title)
-        moviesample.title
-        seriessample = Seriesinformation.choice(self.title)
-        seriessample.title
-        sample = random.sample(zip(moviesample.title,seriessample.title), 1)
-        print(sample)
+        moviesample = Movieinformation(title)
         
+        seriessample = Seriesinformation(title)
+        
+        sample = random.sample(zip(moviesample,seriessample), 1)
+        print(sample)
+        if sample == moviesample
         #sample = random.sample(self.movieserialsbase(self.title), 1)
         #print(sample)
         #title = self.movieserialsbase)
