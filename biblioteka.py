@@ -24,7 +24,8 @@ class Movieinformation(Base):
         return self.numplays
 
     def info(self):
-        informations = self.title + "\t" + str(self.year)
+        bracket = "()"
+        informations = self.title + "\t" + f"({str(self.year)})"
         return informations
         
 class Seriesinformation(Base):
@@ -144,8 +145,8 @@ class Library:
         print("Library of movies and series: ")
         for i in self.movieserialsbase:
             if i.type_card == 'Movie':
-                print(i)
-            elif i.type_card == 'Series':
+                print(i.info())
+            elif i.type_card == 'Series':    
                 print(i.info())
         
 
