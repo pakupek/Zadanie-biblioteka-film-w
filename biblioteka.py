@@ -117,28 +117,26 @@ class Library:
                                 print(i.title)
                                 x += 1
     
-    def add_movies_series(self):
-        type_card = input("Choose movies or series: ")
-        if type_card == 'movies':
-            movies_title = input("Ttile of movie: ")
-            movies_year = int(input("Movie year: "))
-            movies_type = input("Movie type: ")
-            movie_numplays = random.randint(1,100)
-            newMovie = Movieinformation(movies_title, movies_year, movies_type, movie_numplays)
-            self.movieserialsbase.append(newMovie)
+    def add_movies(self):
+        movies_title = input("Ttile of movie: ")
+        movies_year = int(input("Movie year: "))
+        movies_type = input("Movie type: ")
+        movie_numplays = random.randint(1,100)
+        newMovie = Movieinformation(movies_title, movies_year, movies_type, movie_numplays)
+        self.movieserialsbase.append(newMovie)
 
         
-        elif type_card == 'series':
-            series_title = input("Title of series: ")
-            series_year = int(input("Series year: "))
-            series_type = input("Series type: ")
-            series_season = int(input("Series season numbers: "))
-            series_episode = int(input("Series episode numbers: "))
-            series_numplays = random.randint(1,100)
-            newSeries = Seriesinformation(series_title, series_year, series_type,series_season, series_episode, series_numplays)
-            self.movieserialsbase.append(newSeries)
-            
         
+            
+    def add_series(self):
+        series_title = input("Title of series: ")
+        series_year = int(input("Series year: "))
+        series_type = input("Series type: ")
+        series_season = int(input("Series season numbers: "))
+        series_episode = int(input("Series episode numbers: "))
+        series_numplays = random.randint(1,100)
+        newSeries = Seriesinformation(series_title, series_year, series_type,series_season, series_episode, series_numplays)
+        self.movieserialsbase.append(newSeries)    
         
     def show_library(self):
         print("Library of movies and series: ")
@@ -156,14 +154,23 @@ def main():
     library = Library()
     today = date.today()
     fdate = date.today().strftime('%d/%m/%y')
-
-    print("Movie library: ")
+    option = input(("Which one do you want to add (movies/series): "))
     
-    library.add_movies_series()
+    if option == 'movies':
+        quantity = int(input("How many do you want to add? "))
+        for i in range(quantity):
+            library.add_movies()
+    
+    elif option == 'series':
+        quantity = int(input("How many do you want to add? "))
+        for i in range(quantity):
+            library.add_series()    
+    
+    print("Movie library: ")
     library.show_library()
 
     
-    #library.generate_views()
+    library.generate_views()
     print(f"The most popular movies and series of the day {fdate}")
     #library.top_titles()
 
