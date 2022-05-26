@@ -24,7 +24,7 @@ class Movieinformation(Base):
         return self.numplays
 
     def info(self):
-        informations = self.title + "\t" + str(self.year)
+        informations = self.title + "\t" + f"({str(self.year)})"
         return informations
         
 class Seriesinformation(Base):
