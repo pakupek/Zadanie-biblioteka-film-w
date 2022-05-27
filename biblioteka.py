@@ -1,5 +1,7 @@
+
 import random
 from datetime import date
+
 
 #Klasa bazowa
 class Base:
@@ -23,10 +25,13 @@ class Movieinformation(Base):
     def play(self):
         self.numplays += 1
         return self.numplays
+    
+    
+    def __repr__(self): 
+        return f'{self.title} ({self.year})'
+    
+   
 
-    def info(self):
-        informations = self.title + "\t" + f"({str(self.year)})"
-        return informations
 
 
 #Klasa series
@@ -42,155 +47,88 @@ class Seriesinformation(Base):
     def play(self):
         self.numplays += 1
         return self.numplays
+     
+    
     
     #Informacje
-    def info(self):
-        informations = self.title + " " + "S" + str(self.seasonnum) + "E" + str(self.episodenum)
-        return informations
+    def __repr__(self): 
+        return f'{self.title} S{self.seasonnum} E{self.episodenum}'
 
 
+movieserialsbase = [] 
+library = []  
 
-#Klasa biblioteki
-class Library:
-    movieserialsbase = []
-    
-    #Wyswietlanie series
-    def get_series(self):
-        print("Series list: ")
-        for i in self.movieserialsbase:
-            if i.type == 'Series':
-                print(i)
-            sorted(i)
-    
-    #Wyświetlanie movies
-    def get_movies(self):
-        print("Movies list: ")
-        for i in self.movieserialsbase:
-            if i.type == 'Movies':
-                print(i)
-            sorted(i)
+#Dodawanie filmu
+def add_movies():
+        m = Movieinformation(title=input("Title of movie: "), year=int(input("Movie year: ")), type=input("Movie type: "), numplays=random.randint(1,100))
+        movieserialsbase.append(m)
+        library.append(m)
+        print("Successfully added movies \n")
 
-    
-    #Wyszukiwanie z listy
-    def search(self):
-        find = input("Find Movie or serial by its title: ")
-        for i in self.movieserialsbase:
-            if find == i.title:
-                print(i.title)
+#Dodawanie serialu
+def add_series():
+        s = Seriesinformation(title=input("Title of series: "), year=int(input("Series year: ")), type=input("Series type: "), seasonnum=int(input("Series season numbers: ")), episodenum=int(input("Series episode numbers: ")),numplays=random.randint(1,100))
+        movieserialsbase.append(s)
+        library.append(s)
+        print("Successfully added series \n")
 
-    
-    #Generowanie wyświetleń
-    def generate_views(self):
-        add_movies(self)
-        movie.movies.title
-        moviesample = random.sample(self.title,1)
-        print(moviesample)
-        seriessample = Seriesinformation.choice(self.title)
-        seriessample.title = seriessample
-        sample = random.sample(zip(moviesample,seriessample), 1)
-        print(sample)
+#Sortowanie według nazwy
+def sort_title(title):
+        return title.title
+
+#Sortowanie według wyświetleń
+def sort_plays(numplays):
+    return numplays.numplays
+
+#Biblioteka filmów i seriali
+def show_library():
+        print("Library of movies and series:\n ")
+        library = sorted(movieserialsbase, key=sort_title)
+        for i in library:    
+            print(i)
         
-        #sample = random.sample(self.movieserialsbase(self.title), 1)
-        #print(sample)
-        #title = self.movieserialsbase)
-        #numplay = title(self.numplays)
-        #randomnum = random.randint(1,100)
-        #numplay.append(randomnum)
-        
-                
-        
-    
 
-
-    #Wyświetlenia *10
-    def views_times_ten(self, generate_views):
-        for i in range(11):
-            generate_views()
-            i += 1
-
-    
-    #Najpopularniejsze tytuły
-    def top_titles(self):
-        viewcount = 0
-        content_type = input("Show top titles of movies or series? ")
-        if content_type == 'Movies':
-            for i in self.movieserialsbase:
-                for x in range(4):
-                    for y in self.movieserialsbase:
-                        if y.type == 'Movies':
-                            if i.numplays > viewcount:
-                                viewcount += i.numplays
-                                print(i.title)
-                                x += 1
-        elif content_type == 'series':
-            for i in self.movieserialsbase:
-                for x in range(4):
-                    for y in self.movieserialsbase:
-                        if y.type == 'Series':
-                            if i.numplays > viewcount:
-                                viewcount += i.numplays
-                                print(i.title)
-                                x += 1
-    
-    #Dodawanie movies
-    def add_movies(self):
-        movies_title = input("Ttile of movie: ")
-        movies_year = int(input("Movie year: "))
-        movies_type = input("Movie type: ")
-        movie_numplays = random.randint(1,100)
-        newMovie = Movieinformation(movies_title, movies_year, movies_type, movie_numplays)
-        self.movieserialsbase.append(newMovie)
-
-        
-        
-    #Dodawanie series        
-    def add_series(self):
-        series_title = input("Title of series: ")
-        series_year = int(input("Series year: "))
-        series_type = input("Series type: ")
-        series_season = int(input("Series season numbers: "))
-        series_episode = int(input("Series episode numbers: "))
-        series_numplays = random.randint(1,100)
-        newSeries = Seriesinformation(series_title, series_year, series_type,series_season, series_episode, series_numplays)
-        self.movieserialsbase.append(newSeries)    
-        
-    
-    #Pokazanie listy movieserialsbase
-    def show_library(self):
-        print("Library of movies and series: ")
-        for i in self.movieserialsbase:
-            if i.type_card == 'Movie':
-                print(i.info())
-            elif i.type_card == 'Series':
-                print(i.info())
+#Lista top 3 filmów i seriali według wyświetleń
+def top_titles():
+    library = sorted(movieserialsbase, key=sort_plays)
+    count = 3
+    for i in range(count):
+        if count != 0:
+            print(library[i])
+            count -= 1
         
 
 
 
 
 def main():
-    library = Library()
+   
     today = date.today()
     fdate = date.today().strftime('%d/%m/%y')
-    option = input(("Which one do you want to add (movies/series): "))
     
-    if option == 'movies':
-        quantity = int(input("How many do you want to add? "))
-        for i in range(quantity):
-            library.add_movies()
-    
-    elif option == 'series':
-        quantity = int(input("How many do you want to add? "))
-        for i in range(quantity):
-            library.add_series()    
-    
-    print("Movie library: ")
-    library.show_library()
+    print("Welcome to library of movies and series: \n")
 
-    
-    library.generate_views()
-    print(f"The most popular movies and series of the day {fdate}")
-    #library.top_titles()
+
+    while True:
+        print("""What would you like to do?:    
+                1- Add movies
+                2- Add series
+                3- Show library of movies and series
+                4- Top titles of today
+                5- Exit""")
+        
+        x = input("Selected number: ")
+
+        if x == '1': add_movies()
+        if x == '2': add_series()
+        if x == '3': 
+            show_library()
+        if x == '4': 
+            print(f"The most popular movies and series of the day {fdate}")
+            top_titles()
+        if x == '5':
+            print("Exiting bye...") 
+            exit(1)       
 
 
 if __name__ == "__main__":
